@@ -1,8 +1,16 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 # Create your models here.
+
+# Create user and save to the database
+# user = User.objects.create_user('myusername', 'myemail@email.com', 'mypassword')
+# # Update the fields and save
+# user.first_name = 'Joseph'
+# user.last_name = 'Kwanusu'
+# user.save()
 
 # class Blog(models.Model):
 #     title = models.CharField(max_length=255)

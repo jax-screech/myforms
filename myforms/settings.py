@@ -27,12 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+# Redirect the user to home url after login(/account/profile/)
+LOGIN_REDIRECT_URL = '/'
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',
+    'django.contrib.auth',# Core authentication framework and the default models
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
