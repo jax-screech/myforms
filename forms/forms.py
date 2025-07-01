@@ -7,7 +7,7 @@ class BlogForm(forms.ModelForm):
     
     class Meta:
         model = Blog
-        fields = ['author', 'title', 'text', 'is_published']
+        fields = ['author', 'image', 'title', 'text', 'is_published']
     def __init__(self, *args, **kwargs ):
         super(BlogForm, self).__init__(*args, **kwargs) 
     
