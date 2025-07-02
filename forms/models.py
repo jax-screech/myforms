@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -40,6 +41,7 @@ class Blog(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     text = models.TextField()
+    image = CloudinaryField('image', blank=True, null=True)
     date_posted = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=False)
@@ -69,5 +71,14 @@ class Subscriber(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.email    
+        return self.email
+class Students(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    address = models.CharField(max_length=255)
+    roll_number = models.CharField(max_length=20, unique=True)
+    mobile = models.CharField(max_length=15, unique=True)
+
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
     

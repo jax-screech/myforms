@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-e6tm5t!+2qc86%)b1tv*q&vz!rwsw)*_7$-%^9h2%pj^@2^82&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Redirect the user to home url after login(/account/profile/)
 LOGIN_REDIRECT_URL = '/'
@@ -39,6 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'forms',
+    'registration',
+    'cloudinary',
+    'rest_framework',
+    'products', # Custom app for product management
+    'books'
 ]
 
 MIDDLEWARE = [
@@ -70,8 +76,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myforms.wsgi.application'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# Database
+cloudinary.config(
+    cloud_name = "dliasnrpy",
+    api_key = "692653836743637",
+    api_secret = "YWY-HOiKl7rvGtQqxb0Qf62-Uug"
+)
+
+
+# Database 
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {

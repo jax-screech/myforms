@@ -1,6 +1,56 @@
 from django.shortcuts import render, redirect
 from .forms import BlogForm
+from .models import Blog
+import datetime
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Students
+from .serializers import StudentSerializer
+from django.shortcuts import get_object_or_404
 
+class StudentView(APIView):
+    def get(self, request, id=None):
+        if id:
+            result = Students.objects.get()
+            serializers = StudentSerializer(result, many=True)
+            return Response({'status': 'success', 'students': serializers.data}, status=200)
+        result = Students.objects.all()
+        serializers = StudentSerializer(result, many=True)
+        return Response({'status': 'success', 'students': serializers.data}, status=200)
+    
+    def post(self, request):
+        serializer = StudentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'status': 'success', 'data': serializer.data}, status=status.HTTP_200_OK)
+        else:
+            return Response({'status': 'error', 'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, *args, **kwargs):
+        try:
+            student = Students.objects.get(id=kwargs['id'])
+        except Students.DoesNotExist:
+            return Response({'status': 'error', 'data': 'Student not found'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = StudentSerializer(student, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'status': 'success', 'data': serializer.data}, status=status.HTTP_200_OK)
+        else:
+            return Response({'status': 'error', 'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    def patch(self, request, id):
+        result = Students.objects.get(id=id)
+        serializer = StudentSerializer(result, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'status': 'success', 'data': serializer.data})
+        else:
+            return Response({'status': 'error', 'errors': serializer.errors})
+        
+    def delete(self,requests, id=None):
+        result = get_object_or_404(Students, id=id)
+        result.delete()
+        return Response({'status': 'success', 'data': 'Record deleted successfully'})
 # Create your views here.
 def index(request):
     context = { 'message': 'Welcome to django'}
@@ -21,10 +71,18 @@ def filter_demo(request):
 
 def add_blog(request):
     if request.method == 'POST':
-        form = BlogForm(request.POST)
+        form = BlogForm(request.POST, request.FILES)
         if form.is_valid():
-            blog = form.save()
+            blog = form.save(commit=False)
             return redirect('blog_list')
     else:
         form = BlogForm()
-    return render(request, 'add_form.html', {'form': form})    
+    return render(request, 'add_form.html', {'form': form})
+
+def error_404(request, exception):
+    return render(request, '404.html', status=404)
+
+def blog_list(request):
+    blogs = Blog.objects.all()
+    return render(request, 'blog_list.html', {'blogs': blogs})
+
