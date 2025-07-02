@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views
+<<<<<<< HEAD
+=======
+from django.conf.urls import handler404, handler500
+>>>>>>> ae066601e81b303a82bfd355d29c0407101ec3c3
 from django_registration.backends.one_step.views import RegistrationView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -27,6 +31,9 @@ urlpatterns = [
     path('api/', include('products.urls')),
     path('api/', include('books.urls')),
     path('', include('forms.urls')),
+    # path('pdf_reader/', include('pdf_reader.urls')),
+    path('accounts/register/', RegistrationView.as_view(success_url='/'),name='django_registration_register'),
+    path('accounts/', include('django_registration.backends.one_step.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     # path('pdf_reader/', include('pdf_reader.urls')),
     path('accounts/register/', RegistrationView.as_view(success_url='/'),name='django_registration_register'),
@@ -34,5 +41,10 @@ urlpatterns = [
 ]
 
 handler404 = 'forms.views.error_404'
+<<<<<<< HEAD
 #if settings.DEBUG:
    # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+=======
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+>>>>>>> ae066601e81b303a82bfd355d29c0407101ec3c3

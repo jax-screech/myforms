@@ -12,21 +12,32 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import cloudinary
+<<<<<<< HEAD
+=======
+from decouple import config
+import os
+
+
+>>>>>>> ae066601e81b303a82bfd355d29c0407101ec3c3
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+# Quick-start development settings - unsuitable for 
+# See https://docs.djangoproject.com/en/5.2/howto/deployproductionment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-e6tm5t!+2qc86%)b1tv*q&vz!rwsw)*_7$-%^9h2%pj^@2^82&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ["*"]
+=======
+ALLOWED_HOSTS = ['*']
+>>>>>>> ae066601e81b303a82bfd355d29c0407101ec3c3
 
 # Redirect the user to home url after login(/account/profile/)
 LOGIN_REDIRECT_URL = '/'
@@ -40,11 +51,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'forms',
+<<<<<<< HEAD
     'registration',
     'cloudinary',
     'rest_framework',
     'products', # Custom app for product management
     'books'
+=======
+    'cloudinary',
+>>>>>>> ae066601e81b303a82bfd355d29c0407101ec3c3
 ]
 
 MIDDLEWARE = [
@@ -58,6 +73,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'myforms.urls'
+
+cloudinary.config(
+    cloud_name = 'dkoqcv0zn',
+    api_key = '161735453335549',
+    api_secret = '_IoeeHZCHSbIkBBjmBQ_gV2wZX8'
+)
 
 TEMPLATES = [
     {
@@ -130,9 +151,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]  # optional, for custom static files
+STATIC_ROOT = BASE_DIR / "staticfiles"    # used when you run collectstatic
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'  # or smtp.office365.com for Outlook
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'kwanusujoseph@gmail.com'
+# EMAIL_HOST_PASSWORD = 'ieau qfem qirl pbaa'

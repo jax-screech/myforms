@@ -41,7 +41,11 @@ class Blog(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     text = models.TextField()
+<<<<<<< HEAD
     image = CloudinaryField('image', blank=True, null=True)
+=======
+    image = CloudinaryField("image",null=True)
+>>>>>>> ae066601e81b303a82bfd355d29c0407101ec3c3
     date_posted = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=False)
